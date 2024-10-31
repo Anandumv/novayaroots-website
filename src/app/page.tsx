@@ -127,7 +127,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="text-5xl font-bold mb-4"
             >
-              Embrace Nature&apos;s Wisdom with Novayaroots
+              Ready to Transform Your Health Naturally?
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -168,7 +168,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="text-4xl font-bold mb-12 text-center text-green-800"
             >
-              Embracing Nature&apos;s Wisdom: Our Herbal Lifestyle Philosophy
+              Rooted in Tradition, Growing with Purpose
             </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <motion.div
