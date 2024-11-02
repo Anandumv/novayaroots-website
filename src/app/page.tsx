@@ -428,11 +428,11 @@ export default function Home() {
             <p className="text-xl mb-8">Ready to embark on your herbal wellness journey? Get in touch with us!</p>
             <div className="space-y-4">
               <p>Email: <a href="mailto:info@novayaroots.com" className="hover:text-amber-300 transition-colors">info@novayaroots.com</a></p>
-              <p>Phone: <a href="tel:+919633181513" className="hover:text-amber-300 transition-colors">+91 9633181513</a></p>
+              <p>Phone: <a href="tel:+919074561129" className="hover:text-amber-300 transition-colors">+91 9074561129</a></p>
               <p>Address: Nechuli House, Thalakkulathur, Kozhikode, Kerala, India</p>
             </div>
             <motion.a
-              href={`https://api.whatsapp.com/send?phone=919633181513&text=${encodeURIComponent(
+              href={`https://api.whatsapp.com/send?phone=919074561129&text=${encodeURIComponent(
                 'Hi Novayaroots, I\'m interested in learning more about your herbal products and lifestyle tips.'
               )}`}
               target="_blank"

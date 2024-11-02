@@ -24,7 +24,7 @@ export default function Footer() {
           <div>
             <h4 className="text-xl font-semibold mb-4">Contact Us</h4>
             <p>Nechuli House , Thalakkulathur , Kozhikode , Kerala</p>
-            <p>Phone: +91 9633181513</p>
+            <p>Phone: +91 9074561129</p>
             <p>Email: info@novayaroots.com</p>
           </div>
           <div>
