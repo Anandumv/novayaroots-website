@@ -1,15 +1,15 @@
 'use client'
 
-import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useMemo, useEffect, useCallback, useRef, Suspense } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { ArrowLeft, Search, ShoppingCart, Plus, Minus, Leaf, X } from 'lucide-react'
+import { ArrowLeft, Search, ShoppingCart, Plus, Minus, Leaf, X, IndianRupee } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast, Toaster } from 'react-hot-toast'
 
@@ -94,6 +94,16 @@ const products: ProductCategory[] = [
       { name: "Marigold Powder", prices: { "100g": 120, "200g": 240, "500g": 600, "1kg": 1200 } },
     ]
   },
+  {
+    category: "Pickles",
+    items: [
+      { name: "Mango Pickle", prices: { "100g": 75, "200g": 150, "500g": 375, "1kg": 750 } },
+      { name: "Lemon Pickle", prices: { "100g": 62, "200g": 124, "500g": 310, "1kg": 620 } },
+      { name: "Prawn Pickle", prices: { "100g": 87, "200g": 174, "500g": 435, "1kg": 870 } },
+      { name: "Mushroom Pickle", prices: { "100g": 75, "200g": 150, "500g": 375, "1kg": 750 } },
+      { name: "Fish Pickle", prices: { "100g": 83, "200g": 166, "500g": 415, "1kg": 830 } },
+    ]
+  },
 ]
 
 const weightOptions = ["100g", "200g", "500g", "1kg"] as const
@@ -101,7 +111,7 @@ type WeightOption = typeof weightOptions[number]
 
 type SelectedWeights = Record<string, { weight: WeightOption; quantity: number; price: number }>
 
-export default function OrderPage() {
+function OrderContent() {
   const router = useRouter()
   const [selectedItems, setSelectedItems] = useState<SelectedWeights>({})
   const [contactInfo, setContactInfo] = useState({ name: '', phone: '', address: '' })
@@ -110,10 +120,19 @@ export default function OrderPage() {
   const toastRef = useRef<{ item: string; message: string } | null>(null)
 
   useEffect(() => {
-    if (window.location.hash === '#void') {
-      router.replace('/order')
+    const handleHashChange = () => {
+      if (window.location.hash === '#void') {
+        window.history.replaceState(null, '', window.location.pathname)
+      }
     }
-  }, [router])
+
+    handleHashChange()
+    window.addEventListener('hashchange', handleHashChange)
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange)
+    }
+  }, [])
 
   const filteredProducts = useMemo(() => {
     if (!searchTerm) return products
@@ -222,12 +241,12 @@ Address: ${contactInfo.address}
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 text-green-900">
+    <>
       <Toaster position="top-right" />
       <header className="bg-gradient-to-r from-green-800 to-green-700 text-white p-4 sm:p-6 sticky top-0 z-10 shadow-lg">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
           <Link href="/" className="text-2xl sm:text-3xl font-bold hover:text-amber-300 transition-colors flex items-center">
-            <Leaf className="mr-2" />
+            <Leaf className="mr-2 animate-pulse" />
             Novayaroots
           </Link>
           <Button
@@ -244,12 +263,12 @@ Address: ${contactInfo.address}
       <main className="container mx-auto py-8 px-4 sm:py-12">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0  }}
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
           <Link href="/">
-            <Button variant="outline" className="text-green-800 border-green-800 hover:bg-green-200 transition-all duration-300 w-full sm:w-auto">
+            <Button variant="outline" className="text-green-800 border-green-800 hover:bg-green-100 transition-all duration-300 w-full sm:w-auto">
               <ArrowLeft className="mr-2 h-4 w-4" /> Back to Home
             </Button>
           </Link>
@@ -265,7 +284,7 @@ Address: ${contactInfo.address}
         </motion.h1>
 
         <motion.div
-          initial={{   opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mb-8"
@@ -292,16 +311,16 @@ Address: ${contactInfo.address}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 * index }}
             >
-              <AccordionItem value={`item-${index}`} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <AccordionTrigger className="px-4 sm:px-6 py-4 text-lg sm:text-xl font-semibold text-green-800 hover:bg-green-100 transition-all duration-300">
-                  {category.category}
+              <AccordionItem value={`item-${index}`} className="bg-white rounded-lg shadow-lg overflow-hidden border border-green-200">
+                <AccordionTrigger className="px-4 sm:px-6 py-4 text-lg sm:text-xl font-semibold text-green-800 hover:bg-green-50 transition-all duration-300">
+                  <span>{category.category}</span>
                 </AccordionTrigger>
-                <AccordionContent className="px-4 sm:px-6 py-4">
+                <AccordionContent className="px-4 sm:px-6 py-4 bg-green-50">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {category.items.map((item) => (
                       <motion.div
                         key={item.name}
-                        className="bg-green-50 p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                        className="bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                         whileHover={{ scale: 1.03 }}
                       >
                         <Label htmlFor={item.name} className="text-base sm:text-lg font-medium mb-2 sm:mb-3 block text-green-800">{item.name}</Label>
@@ -318,19 +337,22 @@ Address: ${contactInfo.address}
                                 <SelectItem key={weight} value={weight} className="text-green-800 hover:bg-green-100">
                                   <div className="flex justify-between items-center w-full">
                                     <span className="font-medium">{weight}</span>
-                                    <span className="text-right ml-4 px-2 py-1 bg-green-100 rounded-full text-green-800 text-sm font-semibold">₹{item.prices[weight]}</span>
+                                    <span className="text-right ml-4 px-2 py-1 bg-green-100 rounded-full text-green-800 text-sm font-semibold flex items-center">
+                                      <IndianRupee className="h-3 w-3 mr-0.5" />
+                                      {item.prices[weight]}
+                                    </span>
                                   </div>
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
                           {selectedItems[item.name] && (
-                            <div className="flex items-center justify-between bg-white rounded-md p-2 border border-green-300">
+                            <div className="flex items-center justify-between bg-green-100 rounded-md p-2 border border-green-300">
                               <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => handleQuantityChange(item.name, -1)}
-                                className="h-8 w-8 rounded-full"
+                                className="h-8 w-8 rounded-full bg-white text-green-800 hover:bg-green-200"
                               >
                                 <Minus className="h-4 w-4" />
                               </Button>
@@ -339,7 +361,7 @@ Address: ${contactInfo.address}
                                 variant="outline"
                                 size="sm"
                                 onClick={() => handleQuantityChange(item.name, 1)}
-                                className="h-8 w-8 rounded-full"
+                                className="h-8 w-8 rounded-full bg-white text-green-800 hover:bg-green-200"
                               >
                                 <Plus className="h-4 w-4" />
                               </Button>
@@ -360,8 +382,8 @@ Address: ${contactInfo.address}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <Card className="mt-8 sm:mt-12 bg-white shadow-xl">
-            <CardHeader className="bg-green-700 text-white">
+          <Card className="mt-8 sm:mt-12 bg-white shadow-xl border-t-4 border-green-600">
+            <CardHeader className="bg-gradient-to-r from-green-700 to-green-600 text-white">
               <CardTitle className="text-xl sm:text-2xl font-semibold">Contact Information</CardTitle>
             </CardHeader>
             <CardContent className="p-4 sm:p-6">
@@ -413,28 +435,38 @@ Address: ${contactInfo.address}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
-          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-6">
-            <h2 className="text-xl sm:text-2xl font-bold text-green-800 mb-4">Order Summary</h2>
-            {Object.entries(selectedItems).map(([item, { weight, quantity, price }]) => (
-              <div key={item} className="flex justify-between items-center mb-2 text-sm sm:text-base">
-                <span className="text-left">{item}</span>
-                <span className="text-right">
-                  <span className="mr-2 sm:mr-4">{weight}</span>
-                  <span>x {quantity}</span>
-                  <span className="ml-2 sm:ml-4">₹{(price * quantity).toFixed(2)}</span>
+          <Card className="bg-white shadow-xl border-t-4 border-green-600 mb-6">
+            <CardHeader className="bg-gradient-to-r from-green-700 to-green-600 text-white">
+              <CardTitle className="text-xl sm:text-2xl font-semibold">Order Summary</CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 sm:p-6">
+              {Object.entries(selectedItems).map(([item, { weight, quantity, price }]) => (
+                <div key={item} className="flex justify-between items-center mb-2 text-sm sm:text-base">
+                  <span className="text-left flex-grow">{item}</span>
+                  <span className="text-right flex items-center justify-end">
+                    <span className="mr-2 sm:mr-4">{weight}</span>
+                    <span className="mr-2 sm:mr-4">x {quantity}</span>
+                    <span className="flex items-center whitespace-nowrap">
+                      <IndianRupee className="h-3 w-3 mr-0.5" />
+                      {(price * quantity).toFixed(2)}
+                    </span>
+                  </span>
+                </div>
+              ))}
+            </CardContent>
+            <CardFooter className="bg-green-50 p-4 sm:p-6">
+              <div className="flex justify-between items-center font-bold text-lg sm:text-xl text-green-800 w-full">
+                <span className="text-left">Subtotal:</span>
+                <span className="text-right flex items-center">
+                  <IndianRupee className="h-4 w-4 mr-0.5" />
+                  {subtotal.toFixed(2)}
                 </span>
               </div>
-            ))}
-            <div className="border-t border-green-300 mt-4 pt-4">
-              <div className="flex justify-between items-center font-bold text-lg sm:text-xl text-green-800">
-                <span className="text-left">Subtotal:</span>
-                <span className="text-right">₹{subtotal.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
+            </CardFooter>
+          </Card>
           <Button
             onClick={handleSubmitOrder}
-            className="bg-green-600 text-white hover:bg-green-700 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 w-full sm:w-auto"
+            className="bg-gradient-to-r from-green-600 to-green-500 text-white hover:from-green-700 hover:to-green-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 w-full sm:w-auto"
           >
             <ShoppingCart className="mr-2 h-5 w-5" />
             Submit Order via WhatsApp
@@ -467,17 +499,20 @@ Address: ${contactInfo.address}
               {Object.entries(selectedItems).length > 0 ? (
                 <div className="space-y-4">
                   {Object.entries(selectedItems).map(([item, { weight, quantity, price }]) => (
-                    <div key={item} className="flex justify-between items-center">
+                    <div key={item} className="flex justify-between items-center bg-green-50 p-2 rounded-lg">
                       <div className="text-left">
-                        <p className="font-medium">{item}</p>
+                        <p className="font-medium text-green-800">{item}</p>
                         <p className="text-sm text-gray-600">
                           <span className="mr-2 sm:mr-4">{weight}</span>
                           <span>x {quantity}</span>
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-green-600 mr-2">₹{(price * quantity).toFixed(2)}</p>
-                        <Button variant="ghost" onClick={() => handleQuantityChange(item, -quantity)}>
+                        <p className="text-sm text-green-600 mr-2 flex items-center">
+                          <IndianRupee className="h-3 w-3 mr-0.5" />
+                          {(price * quantity).toFixed(2)}
+                        </p>
+                        <Button variant="ghost" onClick={() => handleQuantityChange(item, -quantity)} className="text-red-500 hover:text-red-700">
                           <X className="h-4 w-4" />
                         </Button>
                       </div>
@@ -486,7 +521,10 @@ Address: ${contactInfo.address}
                   <div className="border-t pt-4 mt-4">
                     <p className="font-bold text-lg text-green-800 flex justify-between">
                       <span>Subtotal:</span>
-                      <span>₹{subtotal.toFixed(2)}</span>
+                      <span className="flex items-center">
+                        <IndianRupee className="h-4 w-4 mr-0.5" />
+                        {subtotal.toFixed(2)}
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -495,7 +533,7 @@ Address: ${contactInfo.address}
               )}
               <Button
                 onClick={handleSubmitOrder}
-                className="w-full mt-6 bg-green-600 text-white hover:bg-green-700"
+                className="w-full mt-6 bg-gradient-to-r from-green-600 to-green-500 text-white hover:from-green-700 hover:to-green-600"
               >
                 Proceed to Checkout
               </Button>
@@ -506,9 +544,23 @@ Address: ${contactInfo.address}
 
       <footer className="bg-gradient-to-r from-green-800 to-green-700 text-white p-6 sm:p-8 mt-12 sm:mt-16">
         <div className="container mx-auto text-center">
-          <p className="text-base sm:text-lg">&copy; {new Date().getFullYear()} Novayaroots. Nurturing holistic wellness through nature&apos;s finest herbs and spices.</p>
+          <p className="text-base sm:text-lg">&copy; {new Date().getFullYear()} Novayaroots. Nurturing holistic wellness through nature's finest herbs and spices.</p>
         </div>
       </footer>
+    </>
+  )
+}
+
+export default function OrderPage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white text-gray-900">
+      <Suspense fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-green-800 text-2xl font-semibold">Loading...</div>
+        </div>
+      }>
+        <OrderContent />
+      </Suspense>
     </div>
   )
 }
