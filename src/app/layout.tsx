@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Caudex } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({
+const caudex = Caudex({
   subsets: ['latin'],
+  weight: ['400', '700'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-caudex',
 })
 
 export const viewport: Viewport = {
@@ -68,7 +69,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={caudex.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
@@ -90,7 +91,7 @@ export default function RootLayout({
         />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${caudex.className} antialiased`}>
         <div className="flex min-h-screen flex-col bg-gradient-to-b from-green-800 to-green-600">
           <div className="flex-grow">
             {children}
