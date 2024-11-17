@@ -30,7 +30,7 @@ export default function Home() {
             <Link href="/#contact" className="text-emerald-600 hover:text-emerald-800 text-base md:text-lg">Contact</Link>
           </div>
           <Button className="bg-emerald-600 hover:bg-emerald-700 rounded-full text-sm md:text-base" asChild>
-            <Link href="/products">
+            <Link href="/order">
               <ShoppingBag className="mr-2 h-4 w-4" /> Shop Now
             </Link>
           </Button>
@@ -47,7 +47,7 @@ export default function Home() {
             sourced directly from the lush landscapes of Kerala.
           </p>
           <Button className="bg-emerald-600 hover:bg-emerald-700 text-white text-base md:text-lg px-6 md:px-8 py-2 md:py-3 rounded-full" asChild>
-            <Link href="/products">
+            <Link href="/order">
               Explore Our Collection <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
