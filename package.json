@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 5120",
+    "dev": "next dev -p 5520",
     "prebuild": "node scripts/generate-sitemap.js",
     "build": "next build",
     "start": "next start",
