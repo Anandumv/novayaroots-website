@@ -34,16 +34,17 @@ export default function Home() {
         </header>
 
         <main className="text-gray-900">
-          <section className="py-8 md:py-20 text-center px-4">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-800 mb-4 sm:mb-6">
-              Premium Organic Herb Products from Kerala
+          <section className="py-12 md:py-20 text-center px-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-800 mb-6">
+              Premium Natural Herb Products from Kerala: Moringa, Mulberry & Artisanal Pickles
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-emerald-600 mb-6 sm:mb-8 mx-auto max-w-2xl">
-              Discover Novayaroots' authentic collection of nutrient-rich organic Moringa powder, antioxidant-packed Mulberry leaf tea, and traditional Kerala artisanal pickles.
+            <p className="text-base sm:text-lg md:text-xl text-emerald-600 mb-8 mx-auto max-w-2xl">
+              Discover Novayaroots' authentic collection of nutrient-rich Natural Moringa powder, antioxidant-packed Mulberry leaf tea, and traditional Kerala artisanal pickles.
+              Experience the health benefits and flavors of Kerala's finest natural treasures.
             </p>
             <Button className="bg-emerald-600 hover:bg-emerald-700 text-white text-sm sm:text-base md:text-lg px-4 sm:px-6 md:px-8 py-2 md:py-3 rounded-full w-full sm:w-auto" asChild={true}>
               <Link href="https://novayaroots.com/order/">
-                Explore Our Products <ArrowRight className="ml-2 h-5 w-5" />
+                Explore Our Natural Kerala Herb Products <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
           </section>
@@ -51,7 +52,7 @@ export default function Home() {
           <section id="featured-products" className="py-12 md:py-16">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl md:text-3xl font-bold text-center text-emerald-800 mb-8 md:mb-12">Featured Organic Herb Products from Kerala</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {[
                   {
                     icon: Coffee,
@@ -84,8 +85,8 @@ export default function Home() {
                     ]
                   }
                 ].map((product, index) => (
-                  <Card key={index}>
-                    <CardContent className="p-6">
+                  <Card key={index} className="flex flex-col">
+                    <CardContent className="p-6 flex-grow">
                       <div className="text-center mb-4">
                         <product.icon className="h-16 w-16 text-emerald-600 mx-auto mb-4" />
                         <h3 className="text-lg md:text-xl font-semibold mb-2">{product.title}</h3>
@@ -100,7 +101,7 @@ export default function Home() {
                         ))}
                       </ul>
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="p-6 pt-0">
                       <Button className="w-full bg-emerald-600 hover:bg-emerald-700 rounded-full text-sm md:text-base" asChild={true}>
                         <Link href="https://novayaroots.com/order/">Shop Now</Link>
                       </Button>
@@ -114,11 +115,11 @@ export default function Home() {
           <section id="why-choose-us" className="py-12 md:py-16 bg-emerald-50 scroll-mt-20">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl md:text-3xl font-bold text-center text-emerald-800 mb-8 md:mb-12">Why Choose Our Organic Herb Products from Kerala?</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 {[
-                  { icon: Leaf, title: "Premium Organic Quality", description: "Our Moringa leaves and herb products are carefully selected to ensure the highest organic quality from Kerala's pristine farms." },
+                  { icon: Leaf, title: "Premium Quality", description: "Our Moringa leaves and herb products are carefully selected to ensure the highest quality from Kerala's pristine farms." },
                   { icon: Users, title: "Traditional Kerala Expertise", description: "Crafted using time-tested methods for authentic Moringa tea, Mulberry leaf tea, and other herb products from Kerala." },
-                  { icon: Star, title: "Nature's Goodness of Kerala", description: "From organic Moringa powder to Mulberry leaf tea, experience nature's pure benefits from the lush landscapes of Kerala." },
+                  { icon: Star, title: "Nature's Goodness of Kerala", description: "From Moringa powder to Mulberry leaf tea, experience nature's pure benefits from the lush landscapes of Kerala." },
                   { icon: Recycle, title: "Sustainable Kerala Packaging", description: "Our pickles and herb products come in eco-friendly packaging, preserving Kerala's natural beauty and reducing environmental impact." }
                 ].map((item, index) => (
                   <Card key={index}>
@@ -136,7 +137,7 @@ export default function Home() {
           <section id="newsletter" className="py-12 md:py-16 bg-white">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl md:text-3xl font-bold text-center text-emerald-800 mb-8">Stay Updated on Our Kerala Herb Products</h2>
-              <p className="text-center text-emerald-600 mb-8 mx-auto">
+              <p className="text-center text-emerald-600 mb-8 mx-auto max-w-2xl">
                 Subscribe to receive updates about our organic Moringa products, herb teas, and special offers on traditional Kerala pickles. Be the first to know about new arrivals and exclusive discounts!
               </p>
               <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-4" onSubmit={(e) => { e.preventDefault(); /* Add form submission logic here */ }}>
@@ -153,7 +154,7 @@ export default function Home() {
                 {[
                   {
                     question: "What makes Novayaroots' herb products from Kerala unique?",
-                    answer: "Our products are sourced directly from organic farms in Kerala, ensuring the highest quality and authenticity. We focus on traditional superfoods like Moringa and Mulberry, known for their exceptional health benefits and rich cultural heritage."
+                    answer: "Our products are sourced directly from farms in Kerala, ensuring the highest quality and authenticity. We focus on traditional superfoods like Moringa and Mulberry, known for their exceptional health benefits and rich cultural heritage."
                   },
                   {
                     question: "Are your Kerala herb products certified organic?",
@@ -181,7 +182,7 @@ export default function Home() {
 
           <footer id="contact" className="bg-emerald-800 text-white py-8 md:py-12 scroll-mt-20">
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
                 <div>
                   <h3 className="text-lg md:text-xl font-bold mb-4">Novayaroots</h3>
                   <p className="text-sm md:text-base">Your trusted source for premium organic herb products from Kerala, India.</p>
@@ -253,10 +254,10 @@ export default function Home() {
               </div>
               <div className="mt-8 pt-8 border-t border-emerald-700 text-center text-xs sm:text-sm">
                 <p>&copy; {new Date().getFullYear()} Novayaroots - Authentic Organic Herb Products from Kerala, India. All rights reserved.</p>
-                <p className="mt-2 space-y-2 sm:space-y-0">
-                  <Link href="/privacy-policy" className="hover:text-emerald-300 mr-4 block sm:inline">Privacy Policy</Link>
-                  <Link href="/terms-of-service" className="hover:text-emerald-300 mr-4 block sm:inline">Terms of Service</Link>
-                  <Link href="/sitemap.xml" className="hover:text-emerald-300 block sm:inline">Sitemap</Link>
+                <p className="mt-2">
+                  <Link href="/privacy-policy" className="hover:text-emerald-300 mr-4">Privacy Policy</Link>
+                  <Link href="/terms-of-service" className="hover:text-emerald-300 mr-4">Terms of Service</Link>
+                  <Link href="/sitemap.xml" className="hover:text-emerald-300">Sitemap</Link>
                 </p>
               </div>
             </div>
