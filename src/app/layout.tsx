@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Caudex } from 'next/font/google'
 import './globals.css'
+import { CartProvider } from '@/components/CartContext'
 
 const caudex = Caudex({
   subsets: ['latin'],
@@ -92,12 +93,14 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={`${caudex.className} antialiased`}>
-        <div className="flex min-h-screen flex-col bg-gradient-to-b from-green-800 to-green-600">
-          <div className="flex-grow">
-            {children}
+        <CartProvider>
+          <div className="flex min-h-screen flex-col bg-gradient-to-b from-green-800 to-green-600">
+            <div className="flex-grow">
+              {children}
+            </div>
+            <div className="h-16 bg-white rounded-t-[50px] mt-auto" />
           </div>
-          <div className="h-16 bg-white rounded-t-[50px] mt-auto" />
-        </div>
+        </CartProvider>
       </body>
     </html>
   )
