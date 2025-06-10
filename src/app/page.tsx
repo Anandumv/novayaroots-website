@@ -15,8 +15,9 @@ export default function Home() {
   const sections = useMemo(() => ['home', 'about', 'products', 'lifestyle', 'blog', 'contact'], [])
 
   useEffect(() => {
-    const herbs = ['Ashwagandha', 'Turmeric', 'Moringa', 'Holy Basil', 'Ginger', 'Brahmi']
-    setHerbOfTheDay(herbs[Math.floor(Math.random() * herbs.length)])
+    // const herbs = ['Ashwagandha', 'Turmeric', 'Moringa', 'Holy Basil', 'Ginger', 'Brahmi']
+    // setHerbOfTheDay(herbs[Math.floor(Math.random() * herbs.length)])
+    setHerbOfTheDay('Moringa')
   }, [])
 
   const handleScroll = useCallback(() => {
@@ -43,11 +44,11 @@ export default function Home() {
   }, [handleScroll])
 
   return (
-    <div className="min-h-screen bg-amber-50 text-green-900">
-      <header className="fixed w-full bg-green-800 text-amber-50 p-4 z-10">
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="fixed w-full bg-primary text-primary-foreground p-4 z-10">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold">
-            <Link href="/" className="hover:text-amber-300 transition-colors">
+            <Link href="/" className="hover:text-gray-200 transition-colors">
               Novayaroots
             </Link>
           </h1>
@@ -57,8 +58,8 @@ export default function Home() {
                 <li key={section}>
                   <Link
                     href={`#${section}`}
-                    className={`capitalize hover:text-amber-300 transition-colors ${
-                      activeSection === section ? 'text-amber-300 font-semibold' : ''
+                    className={`capitalize hover:text-gray-200 transition-colors ${
+                      activeSection === section ? 'text-accent font-semibold' : ''
                     }`}
                   >
                     {section}
@@ -68,7 +69,7 @@ export default function Home() {
             </ul>
             <Button
               onClick={() => router.push('/order')}
-              className="bg-amber-400 text-green-800 hover:bg-amber-300 transition-colors"
+              className="bg-accent text-accent-foreground hover:bg-amber-500 transition-colors"
             >
               Place Order
             </Button>
@@ -76,7 +77,7 @@ export default function Home() {
           <div className="md:hidden flex items-center space-x-4">
             <Button
               onClick={() => router.push('/order')}
-              className="bg-amber-400 text-green-800 hover:bg-amber-300 transition-colors"
+              className="bg-accent text-accent-foreground hover:bg-amber-500 transition-colors"
             >
               Order
             </Button>
@@ -84,7 +85,7 @@ export default function Home() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
-              className="text-amber-50 hover:text-amber-300 transition-colors"
+              className="text-primary-foreground hover:text-gray-200 transition-colors"
             >
               Menu
             </button>
@@ -99,14 +100,14 @@ export default function Home() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-x-0 top-16 bg-green-700 text-amber-50 p-4 z-10 md:hidden"
+            className="fixed inset-x-0 top-16 bg-green-700 text-primary-foreground p-4 z-10 md:hidden"
           >
             <ul className="space-y-2">
               {sections.map((section) => (
                 <li key={section}>
                   <Link
                     href={`#${section}`}
-                    className="block capitalize hover:text-amber-300 transition-colors"
+                    className="block capitalize hover:text-gray-200 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {section}
@@ -121,13 +122,17 @@ export default function Home() {
       <main className="pt-16">
         <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-b from-green-800 to-green-600 text-amber-50">
           <div className="text-center">
+            {/* Suggested Image: Consider a high-quality background image of a lush Moringa tree or leaves here.
+                Example:
+                <img src="/placeholder-moringa-hero.jpg" alt="Lush Moringa tree leaves providing a vibrant green background" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: -1, opacity: 0.3 }} />
+            */}
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="text-5xl font-bold mb-4"
             >
-              Ready to Transform Your Health Naturally?
+              Unlock Nature's Miracle: The Power of Moringa
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -135,7 +140,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-xl mb-8"
             >
-              Discover the power of premium organic spices and herbal products for a balanced lifestyle
+              Discover the incredible benefits of Moringa and our premium organic herbal products for a vibrant, balanced lifestyle.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
@@ -177,8 +182,12 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="space-y-6"
               >
+                {/* Suggested Image: Add an image here representing Novayaroots' connection to nature, perhaps showcasing Moringa seedlings or a sustainable harvesting process.
+                    Example:
+                    <img src="/placeholder-moringa-about.jpg" alt="Moringa seedlings growing in a sustainable farm" className="rounded-lg shadow-lg mb-4" />
+                */}
                 <p className="text-lg leading-relaxed">
-                  At Novayaroots, we believe in the profound connection between nature and well-being. Our philosophy is rooted in the ancient wisdom of herbal traditions, seamlessly blended with modern wellness practices. We&apos;re not just purveyors of spices and herbs; we&apos;re advocates for a holistic lifestyle that nourishes body, mind, and spirit.
+                  At Novayaroots, we believe in the profound connection between nature and well-being. Our philosophy is rooted in the ancient wisdom of herbal traditions, seamlessly blended with modern wellness practices. Our star, the Moringa tree, exemplifies this connection, offering a powerhouse of nutrients. We&apos;re not just purveyors of spices and herbs; we&apos;re advocates for a holistic lifestyle that nourishes body, mind, and spirit.
                 </p>
                 <p className="text-lg leading-relaxed">
                   Each product in our collection is a testament to nature&apos;s bounty, carefully selected to enhance your daily rituals and elevate your well-being. From the invigorating aroma of our organic spices to the soothing properties of our herbal blends, every offering is designed to bring balance and vitality to your life.
@@ -190,7 +199,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="space-y-6"
               >
-                <h3 className="text-2xl font-semibold mb-4 text-green-700">Our Guiding Principles:</h3>
+                <h3 className="text-2xl font-semibold mb-4 text-green-700">Our Moringa-Inspired Principles:</h3>
                 <ul className="space-y-4">
                   {[
                     "Honoring Nature's Wisdom",
@@ -232,7 +241,11 @@ export default function Home() {
 
         <section id="products" className="min-h-screen flex items-center justify-center bg-green-100 p-8">
           <div className="container mx-auto">
-            <h2 className="text-4xl font-bold mb-6 text-center">Our Herbal Lifestyle Collection</h2>
+            {/* Suggested Image: A banner image at the top of this section showcasing various Moringa products (powder, capsules, tea) could be effective.
+                Example:
+                <img src="/placeholder-moringa-products-banner.jpg" alt="Collection of Moringa products including powder, capsules, and tea" className="rounded-lg shadow-lg mb-8 w-full" />
+            */}
+            <h2 className="text-4xl font-bold mb-6 text-center">Our Moringa-Powered Herbal Collection</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
@@ -299,7 +312,7 @@ export default function Home() {
 
         <section id="lifestyle" className="min-h-screen flex items-center justify-center bg-amber-100 p-8">
           <div className="container mx-auto max-w-4xl">
-            <h2 className="text-4xl font-bold mb-12 text-center text-green-800">Embrace the Herbal  Lifestyle</h2>
+            <h2 className="text-4xl font-bold mb-12 text-center text-green-800">Embrace the Moringa-Enriched Lifestyle</h2>
             <div className="grid md:grid-cols-2  gap-8">
               <div>
                 <h3 className="text-2xl font-semibold mb-4">Daily Herbal Rituals</h3>
@@ -320,11 +333,15 @@ export default function Home() {
                 </ul>
               </div>
               <div className="space-y-6">
+                {/* Suggested Image: An image depicting a serene lifestyle incorporating Moringa, e.g., someone enjoying Moringa tea or preparing a meal with Moringa.
+                    Example:
+                    <img src="/placeholder-moringa-lifestyle.jpg" alt="Person peacefully drinking a cup of Moringa tea in a calm setting" className="rounded-lg shadow-lg mb-4" />
+                */}
                 <p className="text-lg italic">
                   "Embracing a herbal lifestyle is not just about consuming herbs; it&apos;s about reconnecting with nature&apos;s rhythms and wisdom in our daily lives."
                 </p>
                 <p className="text-lg">
-                  At Novayaroots, we believe that true wellness comes from aligning ourselves with the natural world. Our carefully curated collection of herbs and spices is designed to support you on this journey, offering remedies for common ailments, enhancing your culinary experiences, and providing tools for spiritual growth.
+                  At Novayaroots, we believe that true wellness comes from aligning ourselves with the natural world. Moringa, with its diverse applications, is a cornerstone of this philosophy. Our carefully curated collection of herbs and spices is designed to support you on this journey, offering remedies for common ailments, enhancing your culinary experiences, and providing tools for spiritual growth.
                 </p>
                 <p className="text-lg">
                   Whether you&apos;re a seasoned herbalist or just beginning to explore the world of natural wellness, we invite you to join us in rediscovering the timeless wisdom of herbs. Let&apos;s cultivate a lifestyle that honors our connection to the earth and nurtures our innate capacity for health and vitality.
@@ -447,7 +464,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-green-900 text-amber-50 p-4">
+      <footer className="bg-foreground text-background p-4">
         <div className="container mx-auto text-center">
           <p>&copy; {new Date().getFullYear()} Novayaroots. Nurturing holistic wellness through nature&apos;s finest herbs and spices.</p>
         </div>
